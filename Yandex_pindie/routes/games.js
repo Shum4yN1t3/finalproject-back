@@ -36,6 +36,8 @@ gamesRouter.put(
   checkAuth,
   checkIsVoteRequest,
   checkEmptyFields,
+  findAllGames,
+  checkIsGameExists,
   findGameById,
   checkIfUsersAreSafe,
   checkIfCategoriesAvaliable,
