@@ -128,6 +128,23 @@ const checkIsUsernameAndEmailUnique = async (req, res, next) => {
   }
 };
 
+const checkIsUsernameUnique = async (req, res, next) => {
+  const isInArray = req.usersArray.find((user) => {
+    return req.body.username === user.username;
+  });
+
+  if (isInArray) {
+    res.setHeader("Content-Type", "application/json");
+    res.status(400).send(
+      JSON.stringify({
+        message: "Имя не уникально.",
+      })
+    );
+  } else {
+    next();
+  }
+};
+
 const findAuthorizedUser = async (req, res, next) => {
   console.log("GET /users/:id");
   try {
@@ -176,4 +193,5 @@ module.exports = {
   findAuthorizedUser,
   getUserVotedGames,
   checkIsUsernameAndEmailUnique,
+  checkIsUsernameUnique
 };
