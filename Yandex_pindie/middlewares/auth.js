@@ -1,4 +1,13 @@
 const jwt = require("jsonwebtoken");
+
+const checkCookiesJWT = (req, res, next) => {
+  if (!req.cookies.jwt) {
+    return res.redirect("/");
+  }
+  req.headers.authorization = `Bearer ${req.cookies.jwt}`;
+  next();
+};
+
 const checkAuth = (req, res, next) => {
   const { authorization } = req.headers;
 
@@ -17,19 +26,4 @@ const checkAuth = (req, res, next) => {
   next();
 };
 
-const checkCookiesJWT = (req, res, next) => {
-  if (!req.cookies.jwt) {
-    return res.redirect("/");
-  }
-  req.headers.authorization = `Bearer ${req.cookies.jwt}`;
-  next();
-};
-
-const checkUserRole = (req, res, next) => {
-  if (req.user.role !== "admin") {
-    return res.status(403).send({ message: "Недостаточно прав" });
-  }
-  next();
-};
-
-module.exports = { checkAuth, checkCookiesJWT, checkUserRole };
+module.exports = { checkCookiesJWT, checkAuth };

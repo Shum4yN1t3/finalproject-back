@@ -16,11 +16,6 @@ const userSchema = new mongoose.Schema({
     required: true,
     minlength: 8,
   },
-  role: {
-    type: String,
-    enum: ["user", "admin"],
-    default: "user",
-  },
 });
 
 userSchema.statics.findUserByCredentials = function (email, password) {
@@ -33,7 +28,8 @@ userSchema.statics.findUserByCredentials = function (email, password) {
       if (!matched) {
         return Promise.reject(new Error("Неправильные почта или пароль"));
       }
-      return user;
+
+      return user; // теперь user доступен
     });
   });
 };

@@ -3,24 +3,24 @@ const sendAllUsers = (req, res) => {
   res.end(JSON.stringify(req.usersArray));
 };
 
+const sendUserById = (req, res) => {
+  res.setHeader("Content-Type", "application/json");
+  res.end(JSON.stringify(req.user));
+};
+
 const sendUserCreated = (req, res) => {
   res.setHeader("Content-Type", "application/json");
   res.end(JSON.stringify(req.user));
 };
 
-const sendUserById = (req, res) => {
-  res.setHeader("Content-Type", "application/json");
-  res.end(JSON.stringify(req.game));
-};
-
 const sendUserUpdated = (req, res) => {
   res.setHeader("Content-Type", "application/json");
-  res.status(200).send(JSON.stringify({ message: "Пользователь обновлен" }));
+  res.end("User updated");
 };
 
 const sendUserDeleted = (req, res) => {
   res.setHeader("Content-Type", "application/json");
-  res.status(200).send(JSON.stringify({ message: "Пользователь удален" }));
+  res.end(JSON.stringify(req.user));
 };
 
 const sendMe = (req, res) => {
@@ -30,8 +30,8 @@ const sendMe = (req, res) => {
 
 module.exports = {
   sendAllUsers,
-  sendUserCreated,
   sendUserById,
+  sendUserCreated,
   sendUserUpdated,
   sendUserDeleted,
   sendMe,
